@@ -39,18 +39,21 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.shopping_cart_rounded,
                       iconBackground: Color(0xFFE8F6EF),
                       iconColor: AppColors.primary,
+                      route: AppRoutes.purchaseHistory,
                     ),
                     _DashboardMenuItemData(
                       label: 'বিক্রয় খাতা',
                       icon: Icons.receipt_long_rounded,
                       iconBackground: Color(0xFFEAF1FF),
                       iconColor: Color(0xFF4169C8),
+                      route: AppRoutes.salesHistory,
                     ),
                     _DashboardMenuItemData(
                       label: 'বাকির খাতা',
                       icon: Icons.account_balance_wallet_rounded,
                       iconBackground: Color(0xFFFFF0E6),
                       iconColor: Color(0xFFCE6D1D),
+                      route: AppRoutes.duesLedger,
                     ),
                     _DashboardMenuItemData(
                       label: 'খরচের খাতা',
@@ -69,6 +72,7 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.badge_rounded,
                       iconBackground: Color(0xFFEAF7F2),
                       iconColor: AppColors.primaryContainer,
+                      route: AppRoutes.cashPurchase,
                     ),
                     _DashboardMenuItemData(
                       label: 'পণ্য তালিকা',
@@ -495,49 +499,53 @@ class _DashboardMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xs,
-        vertical: AppSpacing.sm,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(AppRadii.lg),
-        boxShadow: AppShadows.soft,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: item.iconBackground,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              item.icon,
-              color: item.iconColor,
-              size: 24,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Expanded(
-            child: Center(
-              child: Text(
-                item.label,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w700,
-                      height: 1.2,
-                    ),
+    return InkWell(
+      onTap: item.route == null ? null : () => context.push(item.route!),
+      borderRadius: BorderRadius.circular(AppRadii.lg),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.xs,
+          vertical: AppSpacing.sm,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.surfaceContainerLowest,
+          borderRadius: BorderRadius.circular(AppRadii.lg),
+          boxShadow: AppShadows.soft,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: item.iconBackground,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                item.icon,
+                color: item.iconColor,
+                size: 24,
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: AppSpacing.xs),
+            Expanded(
+              child: Center(
+                child: Text(
+                  item.label,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w700,
+                        height: 1.2,
+                      ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -549,10 +557,12 @@ class _DashboardMenuItemData {
     required this.icon,
     required this.iconBackground,
     required this.iconColor,
+    this.route,
   });
 
   final String label;
   final IconData icon;
   final Color iconBackground;
   final Color iconColor;
+  final String? route;
 }

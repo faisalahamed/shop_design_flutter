@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_gradients.dart';
 import '../../../../app/theme/app_radii.dart';
@@ -513,7 +515,7 @@ class _CartBottomAction extends StatelessWidget {
             width: double.infinity,
             height: 72,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => context.push(AppRoutes.salesPayment),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.white,

@@ -8,10 +8,20 @@ import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/dashboard/presentation/pages/dashboard_entry_page.dart';
+import '../../features/dues/presentation/pages/dues_ledger_details_page.dart';
+import '../../features/dues/presentation/pages/dues_ledger_page.dart';
 import '../../features/expenses/presentation/pages/expense_categories_page.dart';
 import '../../features/expenses/presentation/pages/expense_create_page.dart';
 import '../../features/expenses/presentation/pages/expense_page.dart';
+import '../../features/purchases/presentation/pages/cash_purchase_page.dart';
+import '../../features/purchases/presentation/pages/cash_purchase_payment_page.dart';
+import '../../features/purchases/presentation/pages/purchase_history_details_page.dart';
+import '../../features/purchases/presentation/pages/purchase_history_page.dart';
+import '../../features/purchases/presentation/pages/cash_purchase_review_page.dart';
 import '../../features/sales/presentation/pages/sales_cart_page.dart';
+import '../../features/sales/presentation/pages/sales_history_details_page.dart';
+import '../../features/sales/presentation/pages/sales_history_page.dart';
+import '../../features/sales/presentation/pages/sales_payment_page.dart';
 import '../../features/sales/presentation/pages/sales_page.dart';
 import '../../features/stores/presentation/pages/store_selector_page.dart';
 import '../../features/users/presentation/pages/user_management_page.dart';
@@ -57,6 +67,41 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const DashboardEntryPage(),
       ),
       GoRoute(
+        path: AppRoutes.cashPurchase,
+        name: 'cash-purchase',
+        builder: (context, state) => const CashPurchasePage(),
+      ),
+      GoRoute(
+        path: AppRoutes.purchaseHistory,
+        name: 'purchase-history',
+        builder: (context, state) => const PurchaseHistoryPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.purchaseHistoryDetails,
+        name: 'purchase-history-details',
+        builder: (context, state) => const PurchaseHistoryDetailsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.cashPurchaseReview,
+        name: 'cash-purchase-review',
+        builder: (context, state) => const CashPurchaseReviewPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.cashPurchasePayment,
+        name: 'cash-purchase-payment',
+        builder: (context, state) => const CashPurchasePaymentPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.duesLedger,
+        name: 'dues-ledger',
+        builder: (context, state) => const DuesLedgerPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.duesLedgerDetails,
+        name: 'dues-ledger-details',
+        builder: (context, state) => const DuesLedgerDetailsPage(),
+      ),
+      GoRoute(
         path: AppRoutes.expenses,
         name: 'expenses',
         builder: (context, state) => const ExpensePage(),
@@ -65,9 +110,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '${AppRoutes.expenseCreate}/:category',
         name: 'expense-create',
         builder: (context, state) => ExpenseCreatePage(
-          categoryName: Uri.decodeComponent(
-            state.pathParameters['category'] ?? '',
-          ),
+          categoryName: state.pathParameters['category'] ?? '',
         ),
       ),
       GoRoute(
@@ -81,9 +124,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const SalesPage(),
       ),
       GoRoute(
+        path: AppRoutes.salesHistory,
+        name: 'sales-history',
+        builder: (context, state) => const SalesHistoryPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.salesHistoryDetails,
+        name: 'sales-history-details',
+        builder: (context, state) => const SalesHistoryDetailsPage(),
+      ),
+      GoRoute(
         path: AppRoutes.salesCart,
         name: 'sales-cart',
         builder: (context, state) => const SalesCartPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.salesPayment,
+        name: 'sales-payment',
+        builder: (context, state) => const SalesPaymentPage(),
       ),
       GoRoute(
         path: AppRoutes.storeSelector,

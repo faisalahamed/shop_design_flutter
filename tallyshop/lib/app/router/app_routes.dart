@@ -3,11 +3,21 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String forgotPassword = '/forgot-password';
   static const String dashboard = '/dashboard';
+  static const String cashPurchase = '/purchase/cash';
+  static const String purchaseHistory = '/purchase/history';
+  static const String purchaseHistoryDetails = '/purchase/history/details';
+  static const String cashPurchaseReview = '/purchase/cash/review';
+  static const String cashPurchasePayment = '/purchase/cash/payment';
+  static const String duesLedger = '/dues';
+  static const String duesLedgerDetails = '/dues/details';
   static const String expenses = '/expenses';
   static const String expenseCreate = '/expenses/new';
   static const String expenseCategories = '/expenses/categories';
   static const String sales = '/sales';
+  static const String salesHistory = '/sales/history';
+  static const String salesHistoryDetails = '/sales/history/details';
   static const String salesCart = '/sales/cart';
+  static const String salesPayment = '/sales/payment';
   static const String storeSelector = '/stores';
   static const String users = '/users';
 
