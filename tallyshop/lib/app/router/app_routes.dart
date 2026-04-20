@@ -10,12 +10,17 @@ class AppRoutes {
   static const String cashPurchasePayment = '/purchase/cash/payment';
   static const String duesLedger = '/dues';
   static const String duesLedgerDetails = '/dues/details';
+  static const String duesGiving = '/dues/giving';
+  static const String duesTaking = '/dues/taking';
   static const String expenses = '/expenses';
+  static const String expenseHistory = '/expenses/history';
   static const String expenseCreate = '/expenses/new';
   static const String expenseCategories = '/expenses/categories';
+  static const String inventory = '/inventory';
   static const String sales = '/sales';
   static const String salesHistory = '/sales/history';
   static const String salesHistoryDetails = '/sales/history/details';
+  static const String salesReturn = '/sales/return';
   static const String salesCart = '/sales/cart';
   static const String salesPayment = '/sales/payment';
   static const String storeSelector = '/stores';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_gradients.dart';
 import '../../../../app/theme/app_radii.dart';
@@ -165,7 +167,7 @@ class _ProfileSummaryCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '📞 +880 1712-345678',
+                      '+880 1712-345678',
                       style: textTheme.bodyMedium?.copyWith(
                         color: AppColors.textSecondary,
                         fontWeight: FontWeight.w600,
@@ -597,55 +599,63 @@ class _DueBottomActions extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: Container(
-                height: 72,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFE6E3),
-                  borderRadius: BorderRadius.circular(AppRadii.xl),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.arrow_upward_rounded,
-                      color: Color(0xFFD9534F),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'দিচ্ছি (Giving)',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: const Color(0xFFD9534F),
-                            fontWeight: FontWeight.w800,
-                          ),
-                    ),
-                  ],
+              child: InkWell(
+                onTap: () => context.push(AppRoutes.duesGiving),
+                borderRadius: BorderRadius.circular(AppRadii.xl),
+                child: Container(
+                  height: 72,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFE6E3),
+                    borderRadius: BorderRadius.circular(AppRadii.xl),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.arrow_upward_rounded,
+                        color: Color(0xFFD9534F),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'দিচ্ছি (Giving)',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: const Color(0xFFD9534F),
+                              fontWeight: FontWeight.w800,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
-              child: Container(
-                height: 72,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDDF6F8),
-                  borderRadius: BorderRadius.circular(AppRadii.xl),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.arrow_downward_rounded,
-                      color: AppColors.primary,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'নিচ্ছি (Taking)',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w800,
-                          ),
-                    ),
-                  ],
+              child: InkWell(
+                onTap: () => context.push(AppRoutes.duesTaking),
+                borderRadius: BorderRadius.circular(AppRadii.xl),
+                child: Container(
+                  height: 72,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFDDF6F8),
+                    borderRadius: BorderRadius.circular(AppRadii.xl),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.arrow_downward_rounded,
+                        color: AppColors.primary,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'নিচ্ছি (Taking)',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w800,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

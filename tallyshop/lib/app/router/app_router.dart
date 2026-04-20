@@ -8,11 +8,15 @@ import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/dashboard/presentation/pages/dashboard_entry_page.dart';
+import '../../features/dues/presentation/pages/dues_giving_page.dart';
 import '../../features/dues/presentation/pages/dues_ledger_details_page.dart';
 import '../../features/dues/presentation/pages/dues_ledger_page.dart';
+import '../../features/dues/presentation/pages/dues_taking_page.dart';
 import '../../features/expenses/presentation/pages/expense_categories_page.dart';
 import '../../features/expenses/presentation/pages/expense_create_page.dart';
+import '../../features/expenses/presentation/pages/expense_history_page.dart';
 import '../../features/expenses/presentation/pages/expense_page.dart';
+import '../../features/inventory/presentation/pages/inventory_page.dart';
 import '../../features/purchases/presentation/pages/cash_purchase_page.dart';
 import '../../features/purchases/presentation/pages/cash_purchase_payment_page.dart';
 import '../../features/purchases/presentation/pages/purchase_history_details_page.dart';
@@ -22,6 +26,7 @@ import '../../features/sales/presentation/pages/sales_cart_page.dart';
 import '../../features/sales/presentation/pages/sales_history_details_page.dart';
 import '../../features/sales/presentation/pages/sales_history_page.dart';
 import '../../features/sales/presentation/pages/sales_payment_page.dart';
+import '../../features/sales/presentation/pages/sales_return_page.dart';
 import '../../features/sales/presentation/pages/sales_page.dart';
 import '../../features/stores/presentation/pages/store_selector_page.dart';
 import '../../features/users/presentation/pages/user_management_page.dart';
@@ -102,9 +107,29 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const DuesLedgerDetailsPage(),
       ),
       GoRoute(
+        path: AppRoutes.duesGiving,
+        name: 'dues-giving',
+        builder: (context, state) => const DuesGivingPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.duesTaking,
+        name: 'dues-taking',
+        builder: (context, state) => const DuesTakingPage(),
+      ),
+      GoRoute(
         path: AppRoutes.expenses,
         name: 'expenses',
         builder: (context, state) => const ExpensePage(),
+      ),
+      GoRoute(
+        path: AppRoutes.expenseHistory,
+        name: 'expense-history',
+        builder: (context, state) => const ExpenseHistoryPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.inventory,
+        name: 'inventory',
+        builder: (context, state) => const InventoryPage(),
       ),
       GoRoute(
         path: '${AppRoutes.expenseCreate}/:category',
@@ -132,6 +157,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.salesHistoryDetails,
         name: 'sales-history-details',
         builder: (context, state) => const SalesHistoryDetailsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.salesReturn,
+        name: 'sales-return',
+        builder: (context, state) => const SalesReturnPage(),
       ),
       GoRoute(
         path: AppRoutes.salesCart,

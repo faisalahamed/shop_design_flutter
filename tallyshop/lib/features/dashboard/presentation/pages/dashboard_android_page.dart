@@ -60,6 +60,7 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.payments_rounded,
                       iconBackground: Color(0xFFFFEBEB),
                       iconColor: Color(0xFFD54D4D),
+                      route: AppRoutes.expenseHistory,
                     ),
                   ],
                 ),
@@ -85,6 +86,7 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.inventory_2_rounded,
                       iconBackground: Color(0xFFEAF7F2),
                       iconColor: AppColors.primaryContainer,
+                      route: AppRoutes.inventory,
                     ),
                     _DashboardMenuItemData(
                       label: 'রিপোর্ট',
@@ -121,6 +123,7 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.refresh_rounded,
                       iconBackground: AppColors.surfaceContainerHigh,
                       iconColor: AppColors.textSecondary,
+                      route: AppRoutes.salesReturn,
                     ),
                   ],
                 ),
