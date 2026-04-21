@@ -17,11 +17,27 @@ import '../../features/expenses/presentation/pages/expense_create_page.dart';
 import '../../features/expenses/presentation/pages/expense_history_page.dart';
 import '../../features/expenses/presentation/pages/expense_page.dart';
 import '../../features/inventory/presentation/pages/inventory_page.dart';
+import '../../features/incomes/presentation/pages/other_income_page.dart';
+import '../../features/incomes/presentation/pages/other_income_create_page.dart';
+import '../../features/incomes/presentation/pages/other_income_categories_page.dart';
+import '../../features/owners/presentation/pages/owner_giving_page.dart';
+import '../../features/owners/presentation/pages/owner_taking_page.dart';
+import '../../features/owners/presentation/pages/owner_transactions_page.dart';
 import '../../features/purchases/presentation/pages/cash_purchase_page.dart';
 import '../../features/purchases/presentation/pages/cash_purchase_payment_page.dart';
 import '../../features/purchases/presentation/pages/purchase_history_details_page.dart';
 import '../../features/purchases/presentation/pages/purchase_history_page.dart';
 import '../../features/purchases/presentation/pages/cash_purchase_review_page.dart';
+import '../../features/reports/presentation/pages/purchase_report_page.dart';
+import '../../features/reports/presentation/pages/expense_report_page.dart';
+import '../../features/reports/presentation/pages/other_income_report_page.dart';
+import '../../features/reports/presentation/pages/product_report_page.dart';
+import '../../features/reports/presentation/pages/profit_loss_report_page.dart';
+import '../../features/reports/presentation/pages/reports_page.dart';
+import '../../features/reports/presentation/pages/sales_report_page.dart';
+import '../../features/reports/presentation/pages/stock_report_page.dart';
+import '../../features/reports/presentation/pages/suppliers_report_page.dart';
+import '../../features/reports/presentation/pages/top_customers_report_page.dart';
 import '../../features/sales/presentation/pages/sales_cart_page.dart';
 import '../../features/sales/presentation/pages/sales_history_details_page.dart';
 import '../../features/sales/presentation/pages/sales_history_page.dart';
@@ -130,6 +146,88 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.inventory,
         name: 'inventory',
         builder: (context, state) => const InventoryPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.otherIncome,
+        name: 'other-income',
+        builder: (context, state) => const OtherIncomePage(),
+      ),
+      GoRoute(
+        path: '${AppRoutes.otherIncomeCreate}/:category',
+        name: 'other-income-create',
+        builder: (context, state) => OtherIncomeCreatePage(
+          categoryName: state.pathParameters['category'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.otherIncomeCategories,
+        name: 'other-income-categories',
+        builder: (context, state) => const OtherIncomeCategoriesPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.ownerTransactions,
+        name: 'owner-transactions',
+        builder: (context, state) => const OwnerTransactionsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.ownerGiving,
+        name: 'owner-giving',
+        builder: (context, state) => const OwnerGivingPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.ownerTaking,
+        name: 'owner-taking',
+        builder: (context, state) => const OwnerTakingPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reports,
+        name: 'reports',
+        builder: (context, state) => const ReportsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportPurchase,
+        name: 'report-purchase',
+        builder: (context, state) => const PurchaseReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportSales,
+        name: 'report-sales',
+        builder: (context, state) => const SalesReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportStock,
+        name: 'report-stock',
+        builder: (context, state) => const StockReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportProduct,
+        name: 'report-product',
+        builder: (context, state) => const ProductReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportProfitLoss,
+        name: 'report-profit-loss',
+        builder: (context, state) => const ProfitLossReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportTopCustomers,
+        name: 'report-top-customers',
+        builder: (context, state) => const TopCustomersReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportExpense,
+        name: 'report-expense',
+        builder: (context, state) => const ExpenseReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportOtherIncome,
+        name: 'report-other-income',
+        builder: (context, state) => const OtherIncomeReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportSuppliers,
+        name: 'report-suppliers',
+        builder: (context, state) => const SuppliersReportPage(),
       ),
       GoRoute(
         path: '${AppRoutes.expenseCreate}/:category',

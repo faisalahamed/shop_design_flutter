@@ -131,9 +131,9 @@ class _InventoryTopBar extends StatelessWidget {
                   child: Text(
                     'স্টকের হিসাব',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                        ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ],
@@ -152,24 +152,24 @@ class _InventoryStatsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        Expanded(
-          child: _InventoryStatCard(
-            title: 'মোট স্টক',
-            value: '২,৮৫০',
-          ),
-        ),
+        // Expanded(
+        //   child: _InventoryStatCard(
+        //     title: 'মোট স্টক',
+        //     value: '২,৮৫০',
+        //   ),
+        // ),
         SizedBox(width: AppSpacing.sm),
         Expanded(
           child: _InventoryStatCard(
             title: 'স্টক মূল্য',
-            value: '৳ ৮.৮০লাখ',
+            value: '৳ ১,৮8,00,000',
           ),
         ),
         SizedBox(width: AppSpacing.sm),
         Expanded(
           child: _InventoryStatCard(
             title: 'সামগ্র লাভ',
-            value: '৳ ১.২০লাখ',
+            value: '৳ ১,৮8,00,000',
             highlighted: true,
           ),
         ),
@@ -206,17 +206,17 @@ class _InventoryStatCard extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: highlighted ? Colors.white70 : AppColors.textSecondary,
-                  fontWeight: FontWeight.w700,
-                ),
+              color: highlighted ? Colors.white70 : AppColors.textSecondary,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
             value,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: highlighted ? Colors.white : AppColors.primary,
-                  fontWeight: FontWeight.w800,
-                ),
+              color: highlighted ? Colors.white : AppColors.primary,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ],
       ),
@@ -259,10 +259,7 @@ class _InventorySearchRow extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppRadii.lg),
             boxShadow: AppShadows.soft,
           ),
-          child: const Icon(
-            Icons.tune_rounded,
-            color: AppColors.primary,
-          ),
+          child: const Icon(Icons.tune_rounded, color: AppColors.primary),
         ),
       ],
     );
@@ -280,17 +277,18 @@ class _InventoryHeaderRow extends StatelessWidget {
           child: Text(
             'পণ্যের তালিকা',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w800,
-                ),
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
         Text(
-          '৫টি পণ্য পাওয়া গেছে',
+          // '৫টি পণ্য পাওয়া গেছে',
+          'মোট স্টক ৫,৫৫,৫৫৫ টি পণ্য',
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w700,
-              ),
+            color: AppColors.primary,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ],
     );
@@ -344,10 +342,7 @@ class _InventoryItemCard extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: emoji != null
-                ? Text(
-                    emoji!,
-                    style: const TextStyle(fontSize: 38),
-                  )
+                ? Text(emoji!, style: const TextStyle(fontSize: 38))
                 : Icon(
                     icon ?? Icons.inventory_2_rounded,
                     color: AppColors.textSecondary,
@@ -383,9 +378,7 @@ class _InventoryItemCard extends StatelessWidget {
                       ),
                       TextSpan(
                         text: '  $invoiceText',
-                        style: const TextStyle(
-                          color: AppColors.textMuted,
-                        ),
+                        style: const TextStyle(color: AppColors.textMuted),
                       ),
                     ],
                   ),

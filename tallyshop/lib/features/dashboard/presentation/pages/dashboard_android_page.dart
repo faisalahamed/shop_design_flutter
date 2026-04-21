@@ -93,6 +93,7 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.bar_chart_rounded,
                       iconBackground: Color(0xFFEAF7F2),
                       iconColor: AppColors.primaryContainer,
+                      route: AppRoutes.reports,
                     ),
                   ],
                 ),
@@ -105,9 +106,10 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.monetization_on_rounded,
                       iconBackground: AppColors.surfaceContainerHigh,
                       iconColor: AppColors.textSecondary,
+                      route: AppRoutes.ownerTransactions,
                     ),
                     _DashboardMenuItemData(
-                      label: 'বাকি লেনদেন',
+                      label: 'dummy feature 2',
                       icon: Icons.apps_rounded,
                       iconBackground: AppColors.surfaceContainerHigh,
                       iconColor: AppColors.textSecondary,
@@ -117,6 +119,7 @@ class DashboardAndroidPage extends StatelessWidget {
                       icon: Icons.campaign_rounded,
                       iconBackground: AppColors.surfaceContainerHigh,
                       iconColor: AppColors.textSecondary,
+                      route: AppRoutes.otherIncome,
                     ),
                     _DashboardMenuItemData(
                       label: 'পণ্য ফেরত',
@@ -160,9 +163,7 @@ class _DashboardTopBar extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.08),
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.18),
-                    ),
+                    border: Border.all(color: Colors.white.withOpacity(0.18)),
                   ),
                   child: const Icon(
                     Icons.person_rounded,
@@ -173,13 +174,13 @@ class _DashboardTopBar extends StatelessWidget {
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                   child: Text(
-                    'ইউসামানিটারি কোং',
+                    'ফামাম স্টোর',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                        ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
                 IconButton(
@@ -196,15 +197,30 @@ class _DashboardTopBar extends StatelessWidget {
   }
 }
 
-class _SummaryCard extends StatelessWidget {
+class _SummaryCard extends StatefulWidget {
   const _SummaryCard();
+
+  @override
+  State<_SummaryCard> createState() => _SummaryCardState();
+}
+
+class _SummaryCardState extends State<_SummaryCard> {
+  bool _isMoneyHidden = true;
+
+  String _displayMoney(String value) {
+    if (!_isMoneyHidden) {
+      return value;
+    }
+
+    return value.replaceAll(RegExp(r'[0-9০-৯,\.]+'), '••••••');
+  }
 
   @override
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.labelSmall?.copyWith(
-          color: AppColors.textSecondary,
-          fontWeight: FontWeight.w700,
-        );
+      color: AppColors.textSecondary,
+      fontWeight: FontWeight.w700,
+    );
 
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -216,23 +232,44 @@ class _SummaryCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            children: [
+              const Spacer(),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _isMoneyHidden = !_isMoneyHidden;
+                  });
+                },
+                splashRadius: 20,
+                icon: Icon(
+                  _isMoneyHidden
+                      ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: _SummaryHeadline(
                   label: 'ক্যাশ বক্সে আছে',
-                  value: '৳ ৮,০০,০০০',
+                  value: '৳ ৭,০০,০০০',
                   valueColor: const Color(0xFFC63D3D),
                   alignment: CrossAxisAlignment.start,
+                  hideValue: _isMoneyHidden,
                 ),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: _SummaryHeadline(
-                  label: 'মালিক নিলো/দিলো',
-                  value: '৳ -১,০০,০০০',
+                  label: 'অনলাইন ওয়ালেটে আছে',
+                  value: '৳ ১,০০,০০০',
                   valueColor: AppColors.primaryContainer,
                   alignment: CrossAxisAlignment.end,
+                  hideValue: _isMoneyHidden,
                   textAlign: TextAlign.right,
                 ),
               ),
@@ -252,24 +289,28 @@ class _SummaryCard extends StatelessWidget {
                 value: '৳ ১১,০০,০০০',
                 accentColor: AppColors.secondary,
                 titleStyle: titleStyle,
+                hideValue: _isMoneyHidden,
               ),
               _MetricTile(
-                label: 'মোট বিক্রিত পণ্য সংখ্যা',
-                value: '১১',
+                label: 'মালিক নিলো/দিলো',
+                value: '৳ ১,০০,০০০',
                 accentColor: AppColors.primaryContainer,
                 titleStyle: titleStyle,
+                hideValue: _isMoneyHidden,
               ),
               _MetricTile(
                 label: 'বাকি দিয়েছি',
                 value: '৳ ১,০০,০০০',
                 accentColor: AppColors.tertiary,
                 titleStyle: titleStyle,
+                hideValue: _isMoneyHidden,
               ),
               _MetricTile(
                 label: 'আজকের খরচ',
                 value: '৳ ১,০০,০০০',
                 accentColor: const Color(0xFF20B889),
                 titleStyle: titleStyle,
+                hideValue: _isMoneyHidden,
               ),
             ],
           ),
@@ -285,6 +326,7 @@ class _SummaryHeadline extends StatelessWidget {
     required this.value,
     required this.valueColor,
     required this.alignment,
+    this.hideValue = false,
     this.textAlign = TextAlign.left,
   });
 
@@ -292,6 +334,7 @@ class _SummaryHeadline extends StatelessWidget {
   final String value;
   final Color valueColor;
   final CrossAxisAlignment alignment;
+  final bool hideValue;
   final TextAlign textAlign;
 
   @override
@@ -302,19 +345,30 @@ class _SummaryHeadline extends StatelessWidget {
         Text(
           label,
           textAlign: textAlign,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: AppColors.textSecondary,
-                fontWeight: FontWeight.w700,
-              ),
+            color: AppColors.textSecondary,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: AppSpacing.xs),
-        Text(
-          value,
-          textAlign: textAlign,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-                color: valueColor,
-              ),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: textAlign == TextAlign.right
+              ? Alignment.centerRight
+              : Alignment.centerLeft,
+          child: Text(
+            hideValue
+                ? value.replaceAll(RegExp(r'[0-9০-৯,\.]+'), '••••••')
+                : value,
+            textAlign: textAlign,
+            maxLines: 1,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.w800,
+              color: valueColor,
+            ),
+          ),
         ),
       ],
     );
@@ -327,12 +381,14 @@ class _MetricTile extends StatelessWidget {
     required this.value,
     required this.accentColor,
     required this.titleStyle,
+    this.hideValue = false,
   });
 
   final String label;
   final String value;
   final Color accentColor;
   final TextStyle? titleStyle;
+  final bool hideValue;
 
   @override
   Widget build(BuildContext context) {
@@ -358,13 +414,32 @@ class _MetricTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(label, style: titleStyle),
-                  const SizedBox(height: AppSpacing.sm),
                   Text(
-                    value,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w800,
+                    label,
+                    style: titleStyle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          hideValue
+                              ? value.replaceAll(
+                                  RegExp(r'[0-9০-৯,\.]+'),
+                                  '••••••',
+                                )
+                              : value,
+                          maxLines: 1,
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.w800),
                         ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -438,9 +513,9 @@ class _PrimaryActionButton extends StatelessWidget {
           label: Text(
             label,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                ),
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
       ),
@@ -449,10 +524,7 @@ class _PrimaryActionButton extends StatelessWidget {
 }
 
 class _DashboardSection extends StatelessWidget {
-  const _DashboardSection({
-    required this.title,
-    required this.items,
-  });
+  const _DashboardSection({required this.title, required this.items});
 
   final String title;
   final List<_DashboardMenuItemData> items;
@@ -467,9 +539,9 @@ class _DashboardSection extends StatelessWidget {
           child: Text(
             title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w800,
-                ),
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
         const SizedBox(height: AppSpacing.md),
@@ -494,9 +566,7 @@ class _DashboardSection extends StatelessWidget {
 }
 
 class _DashboardMenuItem extends StatelessWidget {
-  const _DashboardMenuItem({
-    required this.item,
-  });
+  const _DashboardMenuItem({required this.item});
 
   final _DashboardMenuItemData item;
 
@@ -525,11 +595,7 @@ class _DashboardMenuItem extends StatelessWidget {
                 color: item.iconBackground,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                item.icon,
-                color: item.iconColor,
-                size: 24,
-              ),
+              child: Icon(item.icon, color: item.iconColor, size: 24),
             ),
             const SizedBox(height: AppSpacing.xs),
             Expanded(
@@ -540,10 +606,10 @@ class _DashboardMenuItem extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w700,
-                        height: 1.2,
-                      ),
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w700,
+                    height: 1.2,
+                  ),
                 ),
               ),
             ),
