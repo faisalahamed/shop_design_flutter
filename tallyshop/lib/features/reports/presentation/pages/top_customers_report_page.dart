@@ -95,7 +95,7 @@ class TopCustomersReportPage extends StatelessWidget {
                       name: 'তানভীর আলম',
                       phone: '01552XXXXXX',
                       dateText: '২৫ জানুয়ারি',
-                      amount: '৳ ৬,৯১০০',
+                      amount: '৳ ৬,৯১০',
                     ),
                     SizedBox(height: AppSpacing.md),
                     _TopCustomerCard(
@@ -193,7 +193,9 @@ class _TopCustomersChip extends StatelessWidget {
     return Container(
       height: 42,
       decoration: BoxDecoration(
-        color: active ? AppColors.surfaceContainerLowest : AppColors.surfaceContainer,
+        color: active
+            ? AppColors.surfaceContainerLowest
+            : AppColors.surfaceContainer,
         borderRadius: BorderRadius.circular(AppRadii.md),
         boxShadow: active ? AppShadows.soft : null,
       ),
@@ -216,7 +218,7 @@ class _TopCustomersDateCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _CircleIconButton(icon: Icons.chevron_left_rounded),
+        const _CircleIconButton(icon: Icons.chevron_left_rounded),
         const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: Container(
@@ -230,7 +232,6 @@ class _TopCustomersDateCard extends StatelessWidget {
               boxShadow: AppShadows.soft,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(
                   Icons.calendar_today_rounded,
@@ -238,19 +239,24 @@ class _TopCustomersDateCard extends StatelessWidget {
                   color: AppColors.primary,
                 ),
                 const SizedBox(width: AppSpacing.sm),
-                Text(
-                  '০১ জানুয়ারি২০২৪ - ৩০ জানুয়ারি২০২৪',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w800,
-                      ),
+                Expanded(
+                  child: Text(
+                    '০১ জানুয়ারি ২০২৪ - ৩০ জানুয়ারি ২০২৪',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w800,
+                        ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
         const SizedBox(width: AppSpacing.sm),
-        _CircleIconButton(icon: Icons.chevron_right_rounded),
+        const _CircleIconButton(icon: Icons.chevron_right_rounded),
       ],
     );
   }
@@ -406,8 +412,8 @@ class _TopCustomerCard extends StatelessWidget {
                   Container(
                     width: 44,
                     height: 44,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF91EFE6),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF91EFE6),
                       shape: BoxShape.circle,
                     ),
                     alignment: Alignment.center,
@@ -427,10 +433,11 @@ class _TopCustomerCard extends StatelessWidget {
                       children: [
                         Text(
                           name,
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                color: AppColors.textPrimary,
-                                fontWeight: FontWeight.w800,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    color: AppColors.textPrimary,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                         ),
                         if (tagText != null) ...[
                           const SizedBox(height: 6),
@@ -445,10 +452,11 @@ class _TopCustomerCard extends StatelessWidget {
                             ),
                             child: Text(
                               tagText!,
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: tagColor,
-                                    fontWeight: FontWeight.w800,
-                                  ),
+                              style:
+                                  Theme.of(context).textTheme.labelSmall?.copyWith(
+                                        color: tagColor,
+                                        fontWeight: FontWeight.w800,
+                                      ),
                             ),
                           ),
                         ],
@@ -462,18 +470,20 @@ class _TopCustomerCard extends StatelessWidget {
                       children: [
                         Text(
                           phone,
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: AppColors.textSecondary,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: AppColors.textSecondary,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           dateText,
-                          style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                                color: AppColors.textMuted,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: AppColors.textMuted,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                         ),
                       ],
                     ),
@@ -485,10 +495,11 @@ class _TopCustomerCard extends StatelessWidget {
                       child: Text(
                         amount,
                         textAlign: TextAlign.right,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w800,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.w800,
+                                ),
                       ),
                     ),
                   ),

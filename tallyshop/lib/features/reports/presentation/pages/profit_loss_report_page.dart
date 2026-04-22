@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_gradients.dart';
 import '../../../../app/theme/app_radii.dart';
@@ -15,83 +17,36 @@ class ProfitLossReportPage extends StatelessWidget {
       backgroundColor: AppColors.background,
       body: Column(
         children: [
-          const _ProfitLossTopBar(),
+          const _SummaryTopBar(),
           Expanded(
-            child: Stack(
-              children: [
-                Positioned(
-                  top: -80,
-                  right: -70,
-                  child: Container(
-                    width: 220,
-                    height: 220,
-                    decoration: const BoxDecoration(
-                      gradient: AppGradients.backgroundGlowTop,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.md,
+                AppSpacing.md,
+                AppSpacing.md,
+                AppSpacing.xxl,
+              ),
+              children: const [
+                _RangeCard(),
+                SizedBox(height: AppSpacing.md),
+                _FilterRow(),
+                SizedBox(height: AppSpacing.xl),
+                _SectionTitleRow(
+                  leftTitle: 'লাভ সম্পর্কে বিস্তারিত',
+                  rightTitle: 'মোট',
                 ),
-                Positioned(
-                  bottom: -120,
-                  left: -70,
-                  child: Container(
-                    width: 240,
-                    height: 240,
-                    decoration: const BoxDecoration(
-                      gradient: AppGradients.backgroundGlowBottom,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-                ListView(
-                  padding: const EdgeInsets.fromLTRB(
-                    AppSpacing.md,
-                    AppSpacing.md,
-                    AppSpacing.md,
-                    AppSpacing.xxl,
-                  ),
-                  children: const [
-                    _ProfitLossDateCard(),
-                    SizedBox(height: AppSpacing.md),
-                    _ProfitLossFilters(),
-                    SizedBox(height: AppSpacing.md),
-                    _ProfitLossHeroCard(),
-                    SizedBox(height: AppSpacing.xl),
-                    _ProfitLossSectionHeader(),
-                    SizedBox(height: AppSpacing.md),
-                    _ProfitLossRecordCard(
-                      code: '#539902',
-                      time: '12:00 PM',
-                      name: 'রুহাইয়া সুলতানা',
-                      leftValue: '৩৬,৪৮০',
-                      rightValue: '২৮৮০',
-                    ),
-                    SizedBox(height: AppSpacing.md),
-                    _ProfitLossRecordCard(
-                      code: '#539891',
-                      time: '11:15 AM',
-                      name: 'আরিফুল হক',
-                      leftValue: '৯১,৮০০',
-                      rightValue: '৮৯,২০০',
-                    ),
-                    SizedBox(height: AppSpacing.md),
-                    _ProfitLossRecordCard(
-                      code: '#539884',
-                      time: '09:45 AM',
-                      name: 'মোশারফ কামরীর হার্ডওয়্যার',
-                      leftValue: '৭২,১০০',
-                      rightValue: '৮৪২০',
-                    ),
-                    SizedBox(height: AppSpacing.md),
-                    _ProfitLossRecordCard(
-                      code: '#539880',
-                      time: 'YESTERDAY',
-                      name: 'তাসিন উদ্দিন',
-                      leftValue: '৮৬,৬০০',
-                      rightValue: '৯১,০৫০',
-                    ),
-                  ],
-                ),
+                SizedBox(height: AppSpacing.md),
+                _ProfitSectionCard(),
+                SizedBox(height: AppSpacing.xl),
+                _StandaloneTitle(title: 'অন্যান্য আয়'),
+                SizedBox(height: AppSpacing.md),
+                _IncomeSectionCard(),
+                SizedBox(height: AppSpacing.xl),
+                _StandaloneTitle(title: 'অন্যান্য খরচ'),
+                SizedBox(height: AppSpacing.md),
+                _ExpenseSectionCard(),
+                SizedBox(height: AppSpacing.xxl),
+                _NetProfitCard(),
               ],
             ),
           ),
@@ -101,50 +56,48 @@ class ProfitLossReportPage extends StatelessWidget {
   }
 }
 
-class _ProfitLossTopBar extends StatelessWidget {
-  const _ProfitLossTopBar();
+class _SummaryTopBar extends StatelessWidget {
+  const _SummaryTopBar();
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: SizedBox(
-        height: 72,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () => Navigator.of(context).maybePop(),
-                icon: const Icon(
-                  Icons.arrow_back_rounded,
-                  color: AppColors.primary,
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: AppGradients.primaryButton,
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: SizedBox(
+          height: 76,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () => Navigator.of(context).maybePop(),
+                  icon: const Icon(
+                    Icons.arrow_back_rounded,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Text(
-                  'লাভ ও ক্ষতি প্রতিবেদন',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w800,
-                      ),
+                Expanded(
+                  child: Text(
+                    'লাভ ক্ষতি রিপোর্ট',
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                        ),
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.picture_as_pdf_rounded,
-                  color: AppColors.primary,
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.picture_as_pdf_rounded,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.calendar_month_rounded,
-                  color: AppColors.primary,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -152,8 +105,8 @@ class _ProfitLossTopBar extends StatelessWidget {
   }
 }
 
-class _ProfitLossDateCard extends StatelessWidget {
-  const _ProfitLossDateCard();
+class _RangeCard extends StatelessWidget {
+  const _RangeCard();
 
   @override
   Widget build(BuildContext context) {
@@ -163,151 +116,97 @@ class _ProfitLossDateCard extends StatelessWidget {
         vertical: AppSpacing.lg,
       ),
       decoration: BoxDecoration(
-        color: AppColors.surfaceContainerLow,
+        gradient: AppGradients.primaryButton,
         borderRadius: BorderRadius.circular(AppRadii.xl),
+        boxShadow: AppShadows.button,
       ),
       child: Row(
         children: [
-          const Icon(Icons.chevron_left_rounded, color: AppColors.primary),
+          const Icon(Icons.chevron_left_rounded, color: Colors.white),
           const Spacer(),
-          Column(
-            children: [
-              Text(
-                'সময়মীমা',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppColors.textMuted,
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '০১ এপ্রিল, ২৬ - ৩০ এপ্রিল, ২৬',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w800,
-                    ),
-              ),
-            ],
+          Text(
+            '০১ এপ্রিল, ২০২৪ - ৩০ এপ্রিল, ২০২৪',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
           ),
           const Spacer(),
-          const Icon(Icons.chevron_right_rounded, color: AppColors.primary),
+          const Icon(Icons.chevron_right_rounded, color: Colors.white),
         ],
       ),
     );
   }
 }
 
-class _ProfitLossFilters extends StatelessWidget {
-  const _ProfitLossFilters();
+class _FilterRow extends StatelessWidget {
+  const _FilterRow();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const [
-        Expanded(child: _ProfitLossChip(label: 'দিন', active: true)),
-        SizedBox(width: AppSpacing.sm),
-        Expanded(child: _ProfitLossChip(label: 'মাস')),
-        SizedBox(width: AppSpacing.sm),
-        Expanded(child: _ProfitLossChip(label: 'বছর')),
-        SizedBox(width: AppSpacing.sm),
-        Expanded(child: _ProfitLossChip(label: 'সব সময়')),
-        SizedBox(width: AppSpacing.sm),
-        Expanded(child: _ProfitLossChip(label: 'কাস্টম')),
-      ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: const [
+          _FilterChip(label: 'দিন'),
+          SizedBox(width: AppSpacing.sm),
+          _FilterChip(label: 'মাস', active: true),
+          SizedBox(width: AppSpacing.sm),
+          _FilterChip(label: 'বছর'),
+          SizedBox(width: AppSpacing.sm),
+          _FilterChip(label: 'সব সময়'),
+          SizedBox(width: AppSpacing.sm),
+          _FilterChip(
+            label: 'ক্যালেন্ডার',
+            icon: Icons.calendar_month_rounded,
+          ),
+        ],
+      ),
     );
   }
 }
 
-class _ProfitLossChip extends StatelessWidget {
-  const _ProfitLossChip({
+class _FilterChip extends StatelessWidget {
+  const _FilterChip({
     required this.label,
     this.active = false,
+    this.icon,
   });
 
   final String label;
   final bool active;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 48,
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       decoration: BoxDecoration(
-        gradient: active ? AppGradients.primaryButton : null,
-        color: active ? null : AppColors.surfaceContainer,
-        borderRadius: BorderRadius.circular(AppRadii.md),
+        color: active ? AppColors.primary : Colors.white,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(
+          color: active ? AppColors.primary : const Color(0xFFD9E3DE),
+        ),
+        boxShadow: AppShadows.soft,
       ),
-      alignment: Alignment.center,
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: active ? Colors.white : AppColors.textSecondary,
-              fontWeight: FontWeight.w700,
-            ),
-      ),
-    );
-  }
-}
-
-class _ProfitLossHeroCard extends StatelessWidget {
-  const _ProfitLossHeroCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        gradient: AppGradients.primaryButton,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: AppShadows.button,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.trending_up_rounded,
-                color: Colors.white70,
-                size: 18,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                'মোট-নিটের লাভ',
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
+          if (icon != null) ...[
+            Icon(
+              icon,
+              size: 18,
+              color: active ? Colors.white : AppColors.textSecondary,
+            ),
+            const SizedBox(width: 6),
+          ],
           Text(
-            '৮,৬৩৪.৮ ৳',
-            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
+            label,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: active ? Colors.white : AppColors.textPrimary,
+                  fontWeight: FontWeight.w700,
                 ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'বাকি ( বেচা )',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Colors.white70,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-              ),
-              Text(
-                '৭,৫৮৫.৫ ৳',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
-              ),
-            ],
           ),
         ],
       ),
@@ -315,8 +214,14 @@ class _ProfitLossHeroCard extends StatelessWidget {
   }
 }
 
-class _ProfitLossSectionHeader extends StatelessWidget {
-  const _ProfitLossSectionHeader();
+class _SectionTitleRow extends StatelessWidget {
+  const _SectionTitleRow({
+    required this.leftTitle,
+    required this.rightTitle,
+  });
+
+  final String leftTitle;
+  final String rightTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -324,114 +229,191 @@ class _ProfitLossSectionHeader extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            'লেনদেন রেকর্ডসমূহ',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            leftTitle,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w800,
                 ),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.sm,
-            vertical: 6,
-          ),
-          decoration: BoxDecoration(
-            color: const Color(0xFFE5F4EE),
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Text(
-            '৬৩টি লেনদেন',
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.w800,
-                ),
-          ),
+        Text(
+          rightTitle,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w800,
+              ),
         ),
       ],
     );
   }
 }
 
-class _ProfitLossRecordCard extends StatelessWidget {
-  const _ProfitLossRecordCard({
-    required this.code,
-    required this.time,
-    required this.name,
-    required this.leftValue,
-    required this.rightValue,
+class _StandaloneTitle extends StatelessWidget {
+  const _StandaloneTitle({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w700,
+          ),
+    );
+  }
+}
+
+class _ProfitSectionCard extends StatelessWidget {
+  const _ProfitSectionCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return const _SummarySectionCard(
+      heading: 'বেচা-বিক্রির লাভ',
+      rows: [
+        _AmountRow(label: 'বেচা-বিক্রি', value: '২৮,০৫০.৪ ৳'),
+        _AmountRow(
+          label: 'পণ্যের ক্রয়মূল্য',
+          value: '(-) ১৯,৩৬৫.৯ ৳',
+          negative: true,
+        ),
+        _AmountRow(
+          label: 'ডেলিভারি চার্জ',
+          value: '(-) ০ ৳',
+          negative: true,
+        ),
+      ],
+      totalLabel: 'বেচা-বিক্রির লাভ',
+      totalValue: '(+) ৮,৬৮৪.৮ ৳',
+      trailingHint: '(বাকি) ৭,৫৮৮.৫ ৳',
+    );
+  }
+}
+
+class _IncomeSectionCard extends StatelessWidget {
+  const _IncomeSectionCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return const _SummarySectionCard(
+      rows: [
+        _AmountRow(label: 'INCOME', value: '(+) ২৩,৫৪৫.৮ ৳'),
+        _AmountRow(label: 'COMMISSION', value: '(+) ৫০০ ৳'),
+      ],
+      totalLabel: 'মোট আয় (অন্যান্য)',
+      totalValue: '(+) ২৪,০৪৫.৮ ৳',
+    );
+  }
+}
+
+class _ExpenseSectionCard extends StatelessWidget {
+  const _ExpenseSectionCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return const _SummarySectionCard(
+      rows: [
+        _AmountRow(
+          label: 'EXPENSE',
+          value: '(-) ৫,৩৬৬.৮ ৳',
+          negative: true,
+        ),
+      ],
+      totalLabel: 'মোট খরচ',
+      totalValue: '(-) ৫,৩৬৬.৮ ৳',
+      totalNegative: true,
+    );
+  }
+}
+
+class _SummarySectionCard extends StatelessWidget {
+  const _SummarySectionCard({
+    this.heading,
+    required this.rows,
+    required this.totalLabel,
+    required this.totalValue,
+    this.trailingHint,
+    this.totalNegative = false,
   });
 
-  final String code;
-  final String time;
-  final String name;
-  final String leftValue;
-  final String rightValue;
+  final String? heading;
+  final List<_AmountRow> rows;
+  final String totalLabel;
+  final String totalValue;
+  final String? trailingHint;
+  final bool totalNegative;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: AppColors.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(AppRadii.xl),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(28),
         boxShadow: AppShadows.soft,
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: AppColors.surfaceContainerLow,
-              borderRadius: BorderRadius.circular(AppRadii.md),
+          if (heading != null) ...[
+            Text(
+              heading!,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w700,
+                  ),
             ),
-            child: const Icon(
-              Icons.receipt_long_rounded,
-              color: AppColors.primary,
-            ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '$code  •  $time',
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: AppColors.textMuted,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  name,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            const SizedBox(height: AppSpacing.md),
+          ],
+          for (var i = 0; i < rows.length; i++) ...[
+            rows[i],
+            if (i != rows.length - 1)
+              const Divider(height: AppSpacing.xl, color: Color(0xFFE5ECE8)),
+          ],
+          const Divider(height: AppSpacing.xl, color: Color(0xFFE5ECE8)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  totalLabel,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.w800,
                       ),
                 ),
-                const SizedBox(height: AppSpacing.sm),
-                Row(
-                  children: [
-                    _MiniMetric(
-                      label: 'বেচা',
-                      value: leftValue,
-                    ),
-                    const SizedBox(width: AppSpacing.md),
-                    _MiniMetric(
-                      label: 'কেনা',
-                      value: rightValue,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    totalValue,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: totalNegative
+                              ? const Color(0xFFE53935)
+                              : AppColors.primary,
+                          fontWeight: FontWeight.w800,
+                        ),
+                  ),
+                  if (trailingHint != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      trailingHint!,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.textMuted,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                   ],
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
-          const SizedBox(width: AppSpacing.sm),
-          const Icon(
-            Icons.chevron_right_rounded,
-            color: AppColors.textSecondary,
+          const SizedBox(height: AppSpacing.lg),
+          _DetailsButton(
+            onTap: () => context.push(AppRoutes.reportProfitLossDetails),
           ),
         ],
       ),
@@ -439,36 +421,124 @@ class _ProfitLossRecordCard extends StatelessWidget {
   }
 }
 
-class _MiniMetric extends StatelessWidget {
-  const _MiniMetric({
+class _AmountRow extends StatelessWidget {
+  const _AmountRow({
     required this.label,
     required this.value,
+    this.negative = false,
   });
 
   final String label;
   final String value;
+  final bool negative;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: AppColors.textMuted,
+        Expanded(
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w500,
+                ),
+          ),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Flexible(
+          child: Text(
+            value,
+            textAlign: TextAlign.end,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: negative
+                      ? const Color(0xFFE53935)
+                      : AppColors.textPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _DetailsButton extends StatelessWidget {
+  const _DetailsButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppRadii.xl),
+      child: Container(
+        height: 64,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppRadii.xl),
+          border: Border.all(color: AppColors.primary, width: 1.5),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          'বিস্তারিত দেখুন  →',
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: AppColors.primary,
                 fontWeight: FontWeight.w700,
               ),
         ),
-        const SizedBox(height: 2),
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w800,
-              ),
-        ),
-      ],
+      ),
+    );
+  }
+}
+
+class _NetProfitCard extends StatelessWidget {
+  const _NetProfitCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE9FBF1),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: const Color(0xFFB9EACD)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'সর্বমোট লাভ',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w800,
+                      ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '(বেচা বিক্রির লাভ + অন্যান্য আয়) - মোট খরচ',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: AppColors.textMuted,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Text(
+            '২৭,৩৬৩.৭ ৳',
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w900,
+                ),
+          ),
+        ],
+      ),
     );
   }
 }

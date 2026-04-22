@@ -29,6 +29,7 @@ class AppRoutes {
   static const String reportStock = '/reports/stock';
   static const String reportProduct = '/reports/product';
   static const String reportProfitLoss = '/reports/profit-loss';
+  static const String reportProfitLossDetails = '/reports/profit-loss/details';
   static const String reportTopCustomers = '/reports/top-customers';
   static const String reportExpense = '/reports/expense';
   static const String reportOtherIncome = '/reports/other-income';

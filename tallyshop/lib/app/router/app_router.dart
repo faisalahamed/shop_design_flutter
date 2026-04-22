@@ -33,6 +33,7 @@ import '../../features/reports/presentation/pages/expense_report_page.dart';
 import '../../features/reports/presentation/pages/other_income_report_page.dart';
 import '../../features/reports/presentation/pages/product_report_page.dart';
 import '../../features/reports/presentation/pages/profit_loss_report_page.dart';
+import '../../features/reports/presentation/pages/profit_loss_report_details_page.dart';
 import '../../features/reports/presentation/pages/reports_page.dart';
 import '../../features/reports/presentation/pages/sales_report_page.dart';
 import '../../features/reports/presentation/pages/stock_report_page.dart';
@@ -208,6 +209,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.reportProfitLoss,
         name: 'report-profit-loss',
         builder: (context, state) => const ProfitLossReportPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.reportProfitLossDetails,
+        name: 'report-profit-loss-details',
+        builder: (context, state) => const ProfitLossReportDetailsPage(),
       ),
       GoRoute(
         path: AppRoutes.reportTopCustomers,
